@@ -4,8 +4,8 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import expressiveCode from "astro-expressive-code";
 
-const site = process.env.SITE_URL || "https://example.github.io";
-const base = process.env.BASE_PATH || "/";
+const site = process.env.SITE_URL || "https://nashdev255.github.io";
+const base = process.env.BASE_PATH || "/nash-portfolio-2026";
 
 export default defineConfig({
   site,
