@@ -1,0 +1,87 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import WorkCard from "@components/WorkCard.astro";
+import { getCollection } from "astro:content";
+const base = import.meta.env.BASE_URL;
+const works = (await getCollection("works", ({ data }) => data.featured))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+<BaseLayout title="Nash - Developer" description="Selected works, technical notes, and experiments by YOUR NAME.">
+  <section class="container-shell relative py-16 sm:py-24 lg:py-28">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.25fr_.75fr]">
+      <div>
+        <p class="neu-chip mb-8"><span class="size-2 rounded-full bg-teal-700" aria-hidden="true"></span> PORTFOLIO / 2026</p>
+        <h1 class="text-balance text-5xl font-extrabold leading-[1.06] tracking-[-.07em] text-ink sm:text-7xl lg:text-[5.7rem]">
+          まちを、みらいを、<br />
+          <span class="text-teal-700">いろづける。</span>
+        </h1>
+        <p class="body-copy mt-8 max-w-xl">
+          こんにちは。nashです。ハードウェア・ソフトウェア開発、都市構想、教育に興味があります。
+        </p>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <a href={`${base}works/`} class="neu-button neu-button-primary">開発実績 <span aria-hidden="true">↗</span></a>
+          <a href={`${base}about/`} class="neu-button">プロフィール <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="neu-panel relative mx-auto w-full max-w-sm p-7 sm:p-9">
+        <div class="neu-inset grid aspect-square place-items-center rounded-4xl p-8">
+          <div class="relative grid size-full place-items-center rounded-full border border-white/80">
+            <div class="absolute size-[78%] rounded-full border border-dashed border-[#aaa2d3]"></div>
+            <div class="grid size-36 place-items-center rounded-[2.5rem] bg-paper text-6xl font-extrabold -tracking-widest text-teal-700 shadow-[9px_9px_18px_#c5ccd7,-9px_-9px_18px_#fff]">N<span class="text-3xl">.</span></div>
+            <span class="absolute right-[8%] top-[14%] size-4 rounded-full bg-teal-500 shadow-[3px_3px_7px_#c5ccd7,-3px_-3px_7px_#fff]"></span>
+            <span class="absolute bottom-[12%] left-[10%] size-3 rounded-full bg-[#9aa7b9] shadow-[3px_3px_7px_#c5ccd7,-3px_-3px_7px_#fff]"></span>
+          </div>
+        </div>
+        <div class="mt-7 flex items-center justify-between gap-3">
+          <div><p class="font-mono text-[10px] tracking-[.16em] text-[#657186]">DESIGN & DEVELOPMENT</p><p class="mt-1 font-semibold">興味のおもむくままに</p></div>
+          <span class="neu-chip">気軽に連絡OK!</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 grid gap-4 sm:grid-cols-3">
+      <div class="neu-inset p-5"><p class="eyebrow">関心分野</p><p class="mt-2 font-semibold">シビルエンジニアリング & 教育</p></div>
+      <div class="neu-inset p-5"><p class="eyebrow">現在の活動</p><p class="mt-2 font-semibold">高専にて情報工学を専攻</p></div>
+      <div class="neu-inset p-5"><p class="eyebrow">活動拠点</p><p class="mt-2 font-semibold">三重県</p></div>
+    </div>
+  </section>
+
+  <section class="container-shell py-16 sm:py-20">
+    <SectionHeading eyebrow="開発実績" title="Things I've made." description="制作物だけでなく、プロセスや技術的な工夫も紹介します。" />
+    {works.length > 0 ? (
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {works.map((work, index) => <WorkCard title={work.data.title} description={work.data.description} category={work.data.category} stack={work.data.stack} cover={work.data.cover} href={`${base}works/${work.id}/`} index={String(index + 1).padStart(2, "0")} />)}
+      </div>
+    ) : (
+      <div class="neu-inset p-8 text-sm text-muted">制作実績は <code>src/content/works/</code> に追加するとここに表示されます。</div>
+    )}
+    <a href={`${base}works/`} class="neu-button mt-8">開発実績一覧へ <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="container-shell py-12 sm:py-16">
+    <SectionHeading eyebrow="LATEST NOTES" title="個人ブログ" description="学んだこと、試したこと、開発の過程を記録しています。" />
+    {articles.length > 0 ? (
+      <div class="neu-panel divide-y divide-[#d1d8e2] px-6 sm:px-9">
+        {articles.map((article) => (
+          <a href={`${base}articles/${article.id}/`} class="group grid gap-2 py-5 sm:grid-cols-[130px_1fr_auto] sm:items-center">
+            <time class="font-mono text-xs text-muted">{article.data.pubDate.toLocaleDateString("ja-JP")}</time>
+            <div><h3 class="font-semibold text-ink transition group-hover:text-teal-700">{article.data.title}</h3><p class="mt-1 text-xs leading-6 text-muted">{article.data.description}</p></div>
+            <span aria-hidden="true" class="text-teal-700 transition group-hover:translate-x-1">↗</span>
+          </a>
+        ))}
+      </div>
+    ) : <p class="neu-inset p-8 text-sm text-muted">記事は <code>src/content/articles/</code> に追加できます。</p>}
+    <a href={`${base}articles/`} class="neu-button mt-8">記事一覧へ <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="container-shell pb-20 pt-10">
+    <div class="neu-panel grid gap-7 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div><p class="eyebrow">LET'S CONNECT</p><h2 class="mt-5 max-w-xl text-3xl font-extrabold tracking-tighter sm:text-5xl">Have an idea?<br />Let's make it real.</h2><p class="body-copy mt-4 max-w-lg">新しいアイデアやコラボレーションについて、お気軽にご連絡ください。</p></div>
+      <a href={`${base}contact/`} class="neu-button neu-button-primary w-fit">Get in touch <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</BaseLayout>

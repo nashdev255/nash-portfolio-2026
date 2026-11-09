@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+const groups = [
+  ["モバイル開発", ["Jetpack Compose (Kotlin)"]],
+  ["Web開発", ["React", "Next.js", "Tailwind CSS"]],
+  ["デザイン", ["Figma", "PowerPoint"]],
+  ["組み込み", ["ESP32"]],
+  ["その他", ["Git / GitHub", "Docker"]],
+  // 開発用途ごとにグループ分けする
+]
+---
+<BaseLayout title="Uses — YOUR NAME" description="Tools, devices, and software I use.">
+  <section class="container-shell py-16 sm:py-24">
+    <p class="eyebrow">SETUP / USES</p>
+    <h1 class="page-heading">Tools for creating</h1>
+    <p class="body-copy mt-6 max-w-xl">日々の開発や制作で使っているハードウェア・ソフトウェアを紹介します。</p>
+    <div class="mt-12 grid gap-5 md:grid-cols-2">
+      {groups.map(([group, items]) => <section class="neu-card p-7"><h2 class="text-lg font-bold">{group}</h2><ul class="mt-5 space-y-3 text-sm text-muted">{items.map((item) => <li class="flex items-center gap-3"><span class="size-2 rounded-full bg-teal-500" aria-hidden="true"></span>{item}</li>)}</ul></section>)}
+    </div>
+  </section>
+</BaseLayout>

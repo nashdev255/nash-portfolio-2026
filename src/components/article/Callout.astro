@@ -1,0 +1,14 @@
+---
+interface Props { type?: "info" | "success" | "warning" | "danger"; title?: string; }
+const { type = "info", title } = Astro.props;
+const styles = {
+  info: "border-[#b9c6df] bg-[#e4eaf4] text-[#273c5d]",
+  success: "border-[#b8d4c5] bg-[#e4f0e9] text-[#234b37]",
+  warning: "border-[#e0cda9] bg-[#f4eddf] text-[#634a1e]",
+  danger: "border-[#e1bcbc] bg-[#f4e5e5] text-[#632f2f]",
+};
+---
+<aside class:list={["my-6 rounded-2xl border p-5 text-sm leading-7 shadow-[4px_4px_9px_#c5ccd7,-4px_-4px_9px_#fff]", styles[type]]} role="note">
+  {title && <p class="mb-1 font-semibold">{title}</p>}
+  <div><slot /></div>
+</aside>

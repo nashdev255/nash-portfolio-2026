@@ -1,0 +1,13 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.astro
+    environment:
+      - CHOKIDAR_USEPOLLING=true

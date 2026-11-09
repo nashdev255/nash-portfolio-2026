@@ -1,0 +1,351 @@
+---
+interface Props {
+  title?: string;
+  caption?: string;
+}
+
+const {
+  title = "このサイトのシステム構成",
+  caption = "コンテンツの作成からビルド、公開、閲覧まで",
+} = Astro.props;
+
+const stages = [
+  {
+    number: "01",
+    eyebrow: "SOURCE",
+    title: "コンテンツ・ソース",
+    description: "サイトを構成するページや記事を管理",
+    items: ["Astro pages / components", "MDX（記事・制作実績）", "画像・アイコンなどの静的ファイル"],
+  },
+  {
+    number: "02",
+    eyebrow: "BUILD",
+    title: "ビルド",
+    description: "ソースを公開用のファイルへ変換",
+    items: ["Astro 7", "Vite / Tailwind CSS 4", "MDX / Expressive Code / Sitemap"],
+  },
+  {
+    number: "03",
+    eyebrow: "OUTPUT",
+    title: "静的ファイル",
+    description: "ブラウザに配信できる成果物を生成",
+    items: ["HTML / CSS / JavaScript", "画像・フォントなどのアセット", "RSS / Sitemap / Pagefind index"],
+  },
+  {
+    number: "04",
+    eyebrow: "DEPLOY",
+    title: "自動デプロイ",
+    description: "GitHub Actionsが成果物を公開環境へ転送",
+    items: ["mainブランチへのpush", "ビルド成果物をアップロード", "GitHub Pagesへデプロイ"],
+  },
+  {
+    number: "05",
+    eyebrow: "DELIVERY",
+    title: "Webサイト",
+    description: "公開されたファイルをブラウザで表示",
+    items: ["GitHub Pages（静的ホスティング）", "PC・スマートフォンから閲覧", "HTTPSでコンテンツを配信"],
+  },
+];
+---
+
+<section class="system-architecture" aria-label="サイトのシステム構成図">
+  <header class="architecture-heading">
+    <span class="architecture-kicker">SYSTEM OVERVIEW</span>
+    <h2>{title}</h2>
+    <p>{caption}</p>
+  </header>
+
+  <div class="architecture-flow" aria-label="コンテンツ・ソースからWebサイトまでの流れ">
+    {stages.map((stage, index) => (
+      <>
+        <article class="architecture-node" data-stage={stage.number}>
+          <div class="node-topline">
+            <span class="node-number">{stage.number}</span>
+            <span class="node-eyebrow">{stage.eyebrow}</span>
+          </div>
+          <h3>{stage.title}</h3>
+          <p class="node-description">{stage.description}</p>
+          <ul>
+            {stage.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+        {index < stages.length - 1 && (
+          <div class="architecture-arrow" aria-hidden="true">
+            <span class="arrow-wide">→</span>
+            <span class="arrow-narrow">↓</span>
+          </div>
+        )}
+      </>
+    ))}
+  </div>
+
+  <div class="architecture-support-grid">
+    <section class="support-card" aria-labelledby="local-dev-title">
+      <div class="support-icon" aria-hidden="true">⌘</div>
+      <div>
+        <span class="support-kicker">LOCAL DEVELOPMENT</span>
+        <h3 id="local-dev-title">ローカル開発環境</h3>
+        <p>Node.js + npm または Docker Compose で開発サーバーを起動し、localhost:4321 で表示を確認します。</p>
+      </div>
+    </section>
+
+    <section class="support-card" aria-labelledby="ci-title">
+      <div class="support-icon" aria-hidden="true">✓</div>
+      <div>
+        <span class="support-kicker">CONTINUOUS INTEGRATION</span>
+        <h3 id="ci-title">品質チェック（CI）</h3>
+        <p>Pull Request / mainへのpushをきっかけに、型・Astro診断、ESLint、Vitest、ビルド、Playwright + axeによるテストを実行します。</p>
+      </div>
+    </section>
+  </div>
+
+  <p class="architecture-footnote">
+    <span aria-hidden="true">i</span>
+    このサイトは静的サイトとして公開しています。閲覧時に動作する専用バックエンドやデータベースはありません。WebフォントはGoogle Fontsから読み込んでいます。
+  </p>
+</section>
+
+<style>
+  .system-architecture {
+    --arch-bg: #e9edf3;
+    --arch-text: #273142;
+    --arch-muted: #657186;
+    --arch-accent: #5545a5;
+    --arch-shadow-light: #ffffff;
+    --arch-shadow-dark: #c5ccd7;
+    margin: 2.5rem 0;
+    padding: clamp(1rem, 3vw, 1.75rem);
+    color: var(--arch-text);
+    background: var(--arch-bg);
+    border: 1px solid rgb(255 255 255 / 65%);
+    border-radius: 1.5rem;
+    box-shadow: 9px 9px 18px var(--arch-shadow-dark), -9px -9px 18px var(--arch-shadow-light);
+  }
+
+  .architecture-heading {
+    margin: 0 auto 1.5rem;
+    text-align: center;
+  }
+
+  .architecture-kicker,
+  .node-eyebrow,
+  .support-kicker {
+    color: var(--arch-accent);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  .architecture-heading h2 {
+    margin: 0.45rem 0 0;
+    color: var(--arch-text);
+    font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+  }
+
+  .architecture-heading p {
+    margin: 0.35rem 0 0;
+    color: var(--arch-muted);
+    font-size: 0.8rem;
+  }
+
+  .architecture-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1.5rem minmax(0, 1fr) 1.5rem minmax(0, 1fr) 1.5rem minmax(0, 1fr) 1.5rem minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  .architecture-node {
+    min-width: 0;
+    padding: 1rem 0.9rem;
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-radius: 1rem;
+    background: var(--arch-bg);
+    box-shadow: 5px 5px 10px var(--arch-shadow-dark), -5px -5px 10px var(--arch-shadow-light);
+  }
+
+  .node-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+  }
+
+  .node-number {
+    display: grid;
+    width: 1.7rem;
+    height: 1.7rem;
+    place-items: center;
+    border-radius: 0.55rem;
+    color: var(--arch-accent);
+    background: var(--arch-bg);
+    box-shadow: inset 2px 2px 4px var(--arch-shadow-dark), inset -2px -2px 4px var(--arch-shadow-light);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .node-eyebrow {
+    font-size: 0.52rem;
+    text-align: right;
+  }
+
+  .architecture-node h3 {
+    margin: 0.85rem 0 0;
+    color: var(--arch-text);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.35;
+  }
+
+  .node-description {
+    min-height: 3.1em;
+    margin: 0.45rem 0 0;
+    color: var(--arch-muted);
+    font-size: 0.68rem;
+    line-height: 1.55;
+  }
+
+  .architecture-node ul {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .architecture-node li {
+    position: relative;
+    padding-left: 0.75rem;
+    color: #465267;
+    font-size: 0.64rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .architecture-node li::before {
+    position: absolute;
+    top: 0.48em;
+    left: 0;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: var(--arch-accent);
+    content: "";
+  }
+
+  .architecture-arrow {
+    display: grid;
+    place-items: center;
+    color: var(--arch-accent);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .arrow-narrow { display: none; }
+
+  .architecture-support-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .support-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--arch-bg);
+    box-shadow: inset 4px 4px 8px var(--arch-shadow-dark), inset -4px -4px 8px var(--arch-shadow-light);
+  }
+
+  .support-icon {
+    display: grid;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 0.65rem;
+    color: var(--arch-accent);
+    background: var(--arch-bg);
+    box-shadow: 3px 3px 6px var(--arch-shadow-dark), -3px -3px 6px var(--arch-shadow-light);
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  .support-card h3 {
+    margin: 0.2rem 0 0;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .support-card p {
+    margin: 0.35rem 0 0;
+    color: var(--arch-muted);
+    font-size: 0.68rem;
+    line-height: 1.65;
+  }
+
+  .support-kicker { font-size: 0.52rem; }
+
+  .architecture-footnote {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin: 1rem 0 0;
+    color: var(--arch-muted);
+    font-size: 0.65rem;
+    line-height: 1.6;
+  }
+
+  .architecture-footnote > span {
+    display: grid;
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--arch-accent);
+    background: var(--arch-bg);
+    box-shadow: inset 1px 1px 2px var(--arch-shadow-dark), inset -1px -1px 2px var(--arch-shadow-light);
+    font-family: Georgia, serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .architecture-flow {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.4rem;
+    }
+
+    .architecture-node { padding: 1rem 1.1rem; }
+    .architecture-node h3 { margin-top: 0.55rem; }
+    .node-description { min-height: 0; }
+    .architecture-node ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .architecture-arrow { min-height: 1.1rem; }
+    .arrow-wide { display: none; }
+    .arrow-narrow { display: inline; }
+  }
+
+  @media (max-width: 560px) {
+    .architecture-support-grid { grid-template-columns: minmax(0, 1fr); }
+    .architecture-node ul { grid-template-columns: minmax(0, 1fr); }
+    .architecture-node { padding: 0.9rem; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .architecture-node,
+    .support-card { transition: box-shadow 180ms ease, transform 180ms ease; }
+    .architecture-node:hover {
+      transform: translateY(-2px);
+      box-shadow: 7px 7px 13px var(--arch-shadow-dark), -7px -7px 13px var(--arch-shadow-light);
+    }
+  }
+</style>
