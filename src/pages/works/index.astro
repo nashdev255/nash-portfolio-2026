@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 const base = import.meta.env.BASE_URL;
 const works = (await getCollection("works")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
-<BaseLayout title="Works — YOUR NAME" description="Selected software, design, and research projects.">
+<BaseLayout title="Works — nash" description="Selected software, design, and research projects.">
   <section class="container-shell py-16 sm:py-24">
     <p class="eyebrow">PORTFOLIO / WORKS</p>
     <h1 class="page-heading">Selected<br /><span class="accent">works.</span></h1>

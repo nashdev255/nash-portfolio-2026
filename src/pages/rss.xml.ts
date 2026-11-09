@@ -5,7 +5,7 @@ import type { APIRoute } from "astro";
 export const GET: APIRoute = async (context) => {
   const articles = await getCollection("articles", ({ data }) => !data.draft);
   return rss({
-    title: "YOUR NAME — Articles",
+    title: "nash — Articles",
     description: "Technical articles, development logs, and notes.",
     site: context.site!,
     items: articles.map((article) => ({

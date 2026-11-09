@@ -11,7 +11,7 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 ---
-<BaseLayout title="Nash - Developer" description="Selected works, technical notes, and experiments by YOUR NAME.">
+<BaseLayout title="Nash - Developer" description="Selected works, technical notes, and experiments by nash.">
   <section class="container-shell relative py-16 sm:py-24 lg:py-28">
     <div class="grid items-center gap-12 lg:grid-cols-[1.25fr_.75fr]">
       <div>
