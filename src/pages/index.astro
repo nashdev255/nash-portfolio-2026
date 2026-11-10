@@ -17,15 +17,15 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
       <div>
         <p class="neu-chip mb-8"><span class="size-2 rounded-full bg-teal-700" aria-hidden="true"></span> PORTFOLIO / 2026</p>
         <h1 class="text-balance text-5xl font-extrabold leading-[1.06] tracking-[-.07em] text-ink sm:text-7xl lg:text-[5.7rem]">
-          まちを、みらいを、<br />
+          <div class="flex flex-wrap gap-0"><span>まちを、</span><span>みらいを、</span></div>
           <span class="text-teal-700">いろづける。</span>
         </h1>
         <p class="body-copy mt-8 max-w-xl">
           こんにちは。nashです。ハードウェア・ソフトウェア開発、都市構想、教育に興味があります。
         </p>
         <div class="mt-9 flex flex-wrap gap-4">
-          <a href={`${base}works/`} class="neu-button neu-button-primary">開発実績 <span aria-hidden="true">↗</span></a>
-          <a href={`${base}about/`} class="neu-button">プロフィール <span aria-hidden="true">→</span></a>
+          <a href={`${base}/works/`} class="neu-button neu-button-primary">開発実績 <span aria-hidden="true">↗</span></a>
+          <a href={`${base}/about/`} class="neu-button">プロフィール <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <div class="neu-panel relative mx-auto w-full max-w-sm p-7 sm:p-9">
@@ -54,12 +54,12 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
     <SectionHeading eyebrow="開発実績" title="Things I've made." description="制作物だけでなく、プロセスや技術的な工夫も紹介します。" />
     {works.length > 0 ? (
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {works.map((work, index) => <WorkCard title={work.data.title} description={work.data.description} category={work.data.category} stack={work.data.stack} cover={work.data.cover} href={`${base}works/${work.id}/`} index={String(index + 1).padStart(2, "0")} />)}
+        {works.map((work, index) => <WorkCard title={work.data.title} description={work.data.description} category={work.data.category} stack={work.data.stack} cover={work.data.cover} href={`${base}/works/${work.id}/`} index={String(index + 1).padStart(2, "0")} />)}
       </div>
     ) : (
       <div class="neu-inset p-8 text-sm text-muted">制作実績は <code>src/content/works/</code> に追加するとここに表示されます。</div>
     )}
-    <a href={`${base}works/`} class="neu-button mt-8">開発実績一覧へ <span aria-hidden="true">→</span></a>
+    <a href={`${base}/works/`} class="neu-button mt-8">開発実績一覧へ <span aria-hidden="true">→</span></a>
   </section>
 
   <section class="container-shell py-12 sm:py-16">
@@ -67,7 +67,7 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
     {articles.length > 0 ? (
       <div class="neu-panel divide-y divide-[#d1d8e2] px-6 sm:px-9">
         {articles.map((article) => (
-          <a href={`${base}articles/${article.id}/`} class="group grid gap-2 py-5 sm:grid-cols-[130px_1fr_auto] sm:items-center">
+          <a href={`${base}/articles/${article.id}/`} class="group grid gap-2 py-5 sm:grid-cols-[130px_1fr_auto] sm:items-center">
             <time class="font-mono text-xs text-muted">{article.data.pubDate.toLocaleDateString("ja-JP")}</time>
             <div><h3 class="font-semibold text-ink transition group-hover:text-teal-700">{article.data.title}</h3><p class="mt-1 text-xs leading-6 text-muted">{article.data.description}</p></div>
             <span aria-hidden="true" class="text-teal-700 transition group-hover:translate-x-1">↗</span>
@@ -75,13 +75,13 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
         ))}
       </div>
     ) : <p class="neu-inset p-8 text-sm text-muted">記事は <code>src/content/articles/</code> に追加できます。</p>}
-    <a href={`${base}articles/`} class="neu-button mt-8">記事一覧へ <span aria-hidden="true">→</span></a>
+    <a href={`${base}/articles/`} class="neu-button mt-8">記事一覧へ <span aria-hidden="true">→</span></a>
   </section>
 
   <section class="container-shell pb-20 pt-10">
     <div class="neu-panel grid gap-7 p-8 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end">
       <div><p class="eyebrow">LET'S CONNECT</p><h2 class="mt-5 max-w-xl text-3xl font-extrabold tracking-tighter sm:text-5xl">Have an idea?<br />Let's make it real.</h2><p class="body-copy mt-4 max-w-lg">新しいアイデアやコラボレーションについて、お気軽にご連絡ください。</p></div>
-      <a href={`${base}contact/`} class="neu-button neu-button-primary w-fit">Get in touch <span aria-hidden="true">↗</span></a>
+      <a href={`${base}/contact/`} class="neu-button neu-button-primary w-fit">Get in touch <span aria-hidden="true">↗</span></a>
     </div>
   </section>
 </BaseLayout>

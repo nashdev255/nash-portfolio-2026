@@ -11,7 +11,7 @@ const works = (await getCollection("works")).sort((a, b) => b.data.date.valueOf(
     <h1 class="page-heading">Selected<br /><span class="accent">works.</span></h1>
     <p class="body-copy mt-6 max-w-xl">これまでに制作したWebサイト、アプリケーション、研究・実験などを紹介します。成果だけでなく、背景や工夫も記録しています。</p>
     <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {works.map((work, index) => <WorkCard title={work.data.title} description={work.data.description} category={work.data.category} stack={work.data.stack} cover={work.data.cover} href={`${base}works/${work.id}/`} index={String(index + 1).padStart(2, "0")} />)}
+      {works.map((work, index) => <WorkCard title={work.data.title} description={work.data.description} category={work.data.category} stack={work.data.stack} cover={work.data.cover} href={`${base}/works/${work.id}/`} index={String(index + 1).padStart(2, "0")} />)}
     </div>
     {works.length === 0 && <p class="neu-inset mt-8 p-8 text-sm text-muted">src/content/works/ にMDXファイルを追加してください。</p>}
   </section>

@@ -26,7 +26,7 @@ const base = import.meta.env.BASE_URL;
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#e9edf3" />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -43,13 +43,13 @@ const base = import.meta.env.BASE_URL;
         <nav aria-label="メインナビゲーション" class="primary-nav">
           {nav.map((item) => (
             <a
-              href={`${base}${item.href.replace(/^\//, "")}`}
+              href={`${base}$/{item.href.replace(/^\//, "")}`}
               aria-current={currentPath === item.href.replace(/\/$/, "") ? "page" : undefined}
               class:list={["nav-link", currentPath === item.href.replace(/\/$/, "") && "is-active"]}
             >{item.label}</a>
           ))}
         </nav>
-        <a href={`${base}contact/`} class="neu-button neu-button-primary header-cta">
+        <a href={`${base}/contact/`} class="neu-button neu-button-primary header-cta">
           お問い合わせ <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -65,7 +65,7 @@ const base = import.meta.env.BASE_URL;
         </div>
         <div class="footer-links">
           <a href="https://github.com/nashdev255" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a href={`${base}contact/`}>お問い合わせ</a>
+          <a href={`${base}/contact/`}>お問い合わせ</a>
         </div>
         <p class="copyright">{new Date().getFullYear()} © nashdev255</p>
       </div>
