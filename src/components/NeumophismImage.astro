@@ -1,0 +1,115 @@
+
+---
+interface Props {
+  img: string;
+  alt?: string;
+  caption?: string;
+  aspectRatio?: string;
+  fit?: "cover" | "contain";
+  radius?: "sm" | "md" | "lg";
+  loading?: "lazy" | "eager";
+}
+
+const {
+  img,
+  alt = "",
+  caption,
+  aspectRatio = "16 / 9",
+  fit = "cover",
+  radius = "md",
+  loading = "lazy",
+} = Astro.props;
+
+const imgSrc = /^https?:\/\//i.test(img)
+  ? img
+  : `${import.meta.env.BASE_URL}/${img.replace(/^\/+/, "")}`;
+
+const radiusClass = `radius-${radius}`;
+---
+
+<figure class="neumorphic-image">
+  <div
+    class={`image-frame ${radiusClass}`}
+    style={`--image-ratio: ${aspectRatio};`}
+  >
+    <img
+      src={imgSrc}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      style={`object-fit: ${fit};`}
+    />
+  </div>
+
+  {caption && (
+    <figcaption class="image-caption">
+      {caption}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .neumorphic-image {
+    --surface: #e9edf3;
+    --shadow-light: #ffffff;
+    --shadow-dark: #c5cbd5;
+    --text: #596477;
+
+    width: 100%;
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .image-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--image-ratio);
+    overflow: hidden;
+    padding: 0.55rem;
+    background: var(--surface);
+    box-shadow:
+      7px 7px 15px var(--shadow-dark),
+      -7px -7px 15px var(--shadow-light);
+  }
+
+  .image-frame.radius-sm {
+    border-radius: 0.75rem;
+  }
+
+  .image-frame.radius-md {
+    border-radius: 1.25rem;
+  }
+
+  .image-frame.radius-lg {
+    border-radius: 1.75rem;
+  }
+
+  .image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow:
+      inset 2px 2px 5px rgb(0 0 0 / 8%),
+      inset -2px -2px 5px rgb(255 255 255 / 50%);
+  }
+
+  .image-caption {
+    margin-top: 0.9rem;
+    padding: 0 0.25rem;
+    color: var(--text);
+    font-size: 0.85rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .image-frame img {
+      transition: transform 250ms ease;
+    }
+
+    .image-frame:hover img {
+      transform: scale(1.015);
+    }
+  }
+</style>
