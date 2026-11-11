@@ -16,7 +16,7 @@ const nav = [
   { href: "/uses/", label: "Uses" },
 ];
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
 ---
 <!doctype html>
 <html lang="ja">

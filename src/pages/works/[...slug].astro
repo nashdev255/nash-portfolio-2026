@@ -7,7 +7,7 @@ export async function getStaticPaths() {
 }
 const { work } = Astro.props;
 const { Content } = await render(work);
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
 ---
 <BaseLayout title={`${work.data.title} — Works`} description={work.data.description}>
   <article class="container-shell max-w-4xl py-16 sm:py-24">

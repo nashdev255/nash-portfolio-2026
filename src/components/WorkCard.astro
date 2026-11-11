@@ -12,7 +12,7 @@ const { title, description, category, stack, href, index = "01", cover } = Astro
 const coverSrc = cover
   ? /^https?:\/\//i.test(cover)
     ? cover
-    : `${import.meta.env.BASE_URL}/${cover.replace(/^\/+/, "")}`
+    : `${import.meta.env.BASE_URL.replace(/\/+$/, "")}/${cover.replace(/^\/+/, "")}`
   : undefined;
 
 ---

@@ -22,7 +22,7 @@ const {
 
 const imgSrc = /^https?:\/\//i.test(img)
   ? img
-  : `${import.meta.env.BASE_URL}/${img.replace(/^\/+/, "")}`;
+  : `${import.meta.env.BASE_URL.replace(/\/+$/, "")}/${img.replace(/^\/+/, "")}`;
 
 const radiusClass = `radius-${radius}`;
 ---

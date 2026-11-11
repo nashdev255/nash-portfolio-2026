@@ -3,6 +3,6 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 <BaseLayout title="404 — Page not found">
   <section class="container-shell grid min-h-[60vh] place-items-center py-20 text-center">
-    <div class="neu-panel max-w-xl p-10 sm:p-14"><p class="eyebrow">ERROR / 404</p><h1 class="mt-5 text-6xl font-extrabold tracking-[-.06em]">Lost in space.</h1><p class="body-copy mt-5">お探しのページは見つかりませんでした。</p><a href={import.meta.env.BASE_URL} class="neu-button neu-button-primary mt-8">Back to home</a></div>
+    <div class="neu-panel max-w-xl p-10 sm:p-14"><p class="eyebrow">ERROR / 404</p><h1 class="mt-5 text-6xl font-extrabold tracking-[-.06em]">Lost in space.</h1><p class="body-copy mt-5">お探しのページは見つかりませんでした。</p><a href={import.meta.env.BASE_URL.replace(/\/+$/, "")} class="neu-button neu-button-primary mt-8">Back to home</a></div>
   </section>
 </BaseLayout>
