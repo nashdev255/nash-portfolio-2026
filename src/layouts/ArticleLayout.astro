@@ -14,7 +14,7 @@ const { title, description, pubDate, category, readingTime, tags = [] } = Astro.
 <BaseLayout title={`${title} — Articles`} description={description}>
   <article class="container-shell grid max-w-6xl gap-10 py-14 lg:grid-cols-[minmax(0,760px)_220px] lg:py-20">
     <div class="min-w-0">
-      <a href={`${import.meta.env.BASE_URL.replace(/\/+$/, "")}articles/`} class="neu-button mb-8">← All articles</a>
+      <a href={`${import.meta.env.BASE_URL.replace(/\/+$/, "")}/articles/`} class="neu-button mb-8">← All articles</a>
       <header class="neu-panel mb-10 p-7 sm:p-10">
         <p class="eyebrow mb-4">ARTICLE / {category}</p>
         <h1 class="text-balance text-3xl font-extrabold leading-tight tracking-tighter text-ink sm:text-5xl">{title}</h1>
