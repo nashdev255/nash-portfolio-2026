@@ -9,6 +9,36 @@ featured: true
 cover: "images/works/unipla.png"
 ---
 
+import NeumorphicImage from "@/components/NeumorphicImage.astro"
+
 ## 概要
 
+この作品は、幼児向けにデザインされた社会問題をテーマにしたミニゲーム集です。<br />
+文字を一切使用せず、イラストや直感的な操作で遊べるため、まだ文字が読めない子どもでも楽しめます。<br />
+各ミニゲームは、環境問題や食料問題など、身近な社会課題をモチーフにしており、遊びながら自然に「社会問題に触れる」体験ができます。<br />
+目的は、幼児期から世界の課題を知るきっかけを作り、将来的に「持続可能な社会」への意識を育むことです。
 
+<NeumorphicImage
+  img="images/works/unipla/unipla-poster.png"
+  aspectRatio="1 / 1"
+  caption="Uni's planetのポスター"
+  alt="Uni's planetのポスター" />
+
+## 使用技術
+
+Unity (C#)単体で動作させています。
+制作するゲームの方針上、通信技術も使用していません。
+
+## アピールポイント
+
+文字を一切使わず、視覚的に分かりやすいデザインを組むことにより、お子さまでも直感的に操作できるゲームとなっています。
+例えば、各ミニゲームは文字ではなく映像で視覚的に説明されています。
+
+## おまけ
+
+実は、このゲームは全て[Unity UI (uGUI)](https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/index.html)によって動作しています。
+本来、ゲームを制作する際はUIでないゲームオブジェクトを制御して動かすべきですが、このゲームはWebアプリケーションのようにUIを操作して遊ぶという性質があるため、
+全てUIで記述する方が都合が良いと判断しました。
+
+これを起因として、アニメーションとして制作したパーティクルエフェクトが正しく動作しない問題が発生しており、
+オープンソース描画ツールの[ParticleEffectForUGUI](https://github.com/mob-sakai/ParticleEffectForUGUI)を導入することで対処しました。
